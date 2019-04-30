@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emr.dao.DrugMapper">
+  <resultMap id="BaseResultMap" type="com.emr.pojo.Drug">
+    <result column="dr_id" jdbcType="VARCHAR" property="drId" />
+    <result column="dr_name" jdbcType="VARCHAR" property="drName" />
+    <result column="dr_spec" jdbcType="VARCHAR" property="drSpec" />
+    <result column="dr_use" jdbcType="VARCHAR" property="drUse" />
+    <result column="dr_belong" jdbcType="VARCHAR" property="drBelong" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dr_id, dr_name, dr_spec, dr_use, dr_belong
+  </sql>
+  <select id="selectByExample" parameterType="com.emr.pojo.DrugExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from drug
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.emr.pojo.DrugExample">
+    delete from drug
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.emr.pojo.Drug">
+    insert into drug (dr_id, dr_name, dr_spec, 
+      dr_use, dr_belong)
+    values (#{drId,jdbcType=VARCHAR}, #{drName,jdbcType=VARCHAR}, #{drSpec,jdbcType=VARCHAR}, 
+      #{drUse,jdbcType=VARCHAR}, #{drBelong,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.emr.pojo.Drug">
+    insert into drug 
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="drId != null">
+        dr_id,
+      </if>
+      <if test="drName != null">
+        dr_name,
+      </if>
+      <if test="drSpec != null">
+        dr_spec,
+      </if>
+      <if test="drUse != null">
+        dr_use,
+      </if>
+      <if test="drBelong != null">
+        dr_belong,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="drId != null">
+        #{drId,jdbcType=VARCHAR},
+      </if>
+      <if test="drName != null">
+        #{drName,jdbcType=VARCHAR},
+      </if>
+      <if test="drSpec != null">
+        #{drSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="drUse != null">
+        #{drUse,jdbcType=VARCHAR},
+      </if>
+      <if test="drBelong != null">
+        #{drBelong,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByLike"  resultType="java.lang.Long">
+    select count(*) from drug where dr_name like "%"#{name}"%"
+  </select>
+  <select id="countByExample" parameterType="com.emr.pojo.DrugExample" resultType="java.lang.Long">
+    select count(*) from drug 
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update drug
+    <set>
+      <if test="record.drId != null">
+        dr_id = #{record.drId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drName != null">
+        dr_name = #{record.drName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drSpec != null">
+        dr_spec = #{record.drSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drUse != null">
+        dr_use = #{record.drUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drBelong != null">
+        dr_belong = #{record.drBelong,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update drug
+    set dr_id = #{record.drId,jdbcType=VARCHAR},
+      dr_name = #{record.drName,jdbcType=VARCHAR},
+      dr_spec = #{record.drSpec,jdbcType=VARCHAR},
+      dr_use = #{record.drUse,jdbcType=VARCHAR},
+      dr_belong = #{record.drBelong,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

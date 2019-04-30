@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emr.dao.HistorysheetMapper">
+  <resultMap id="BaseResultMap" type="com.emr.pojo.Historysheet">
+    <result column="h_id" jdbcType="VARCHAR" property="hId" />
+    <result column="h_name" jdbcType="VARCHAR" property="hName" />
+    <result column="h_age" jdbcType="VARCHAR" property="hAge" />
+    <result column="h_birth" jdbcType="VARCHAR" property="hBirth" />
+    <result column="h_gender" jdbcType="VARCHAR" property="hGender" />
+    <result column="h_ask" jdbcType="VARCHAR" property="hAsk" />
+    <result column="h_judge" jdbcType="VARCHAR" property="hJudge" />
+    <result column="h_create" jdbcType="TIMESTAMP" property="hCreate" />
+    <result column="h_modified" jdbcType="TIMESTAMP" property="hModified" />
+    <result column="h_dep" jdbcType="VARCHAR" property="hDep" />
+    <result column="h_doctor" jdbcType="VARCHAR" property="hDoctor" />
+    <result column="h_drug" jdbcType="VARCHAR" property="hDrug" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    h_id, h_name, h_age, h_birth, h_gender, h_ask, h_judge, h_create, h_modified, h_dep, 
+    h_doctor, h_drug
+  </sql>
+  <select id="selectByExample" parameterType="com.emr.pojo.HistorysheetExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from historysheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.emr.pojo.HistorysheetExample">
+    delete from historysheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.emr.pojo.Historysheet">
+    insert into historysheet (h_id, h_name, h_age, 
+      h_birth, h_gender, h_ask, 
+      h_judge, h_create, h_modified, 
+      h_dep, h_doctor, h_drug
+      )
+    values (#{hId,jdbcType=VARCHAR}, #{hName,jdbcType=VARCHAR}, #{hAge,jdbcType=VARCHAR}, 
+      #{hBirth,jdbcType=VARCHAR}, #{hGender,jdbcType=VARCHAR}, #{hAsk,jdbcType=VARCHAR}, 
+      #{hJudge,jdbcType=VARCHAR}, #{hCreate,jdbcType=TIMESTAMP}, #{hModified,jdbcType=TIMESTAMP}, 
+      #{hDep,jdbcType=VARCHAR}, #{hDoctor,jdbcType=VARCHAR}, #{hDrug,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.emr.pojo.Historysheet">
+    insert into historysheet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hId != null">
+        h_id,
+      </if>
+      <if test="hName != null">
+        h_name,
+      </if>
+      <if test="hAge != null">
+        h_age,
+      </if>
+      <if test="hBirth != null">
+        h_birth,
+      </if>
+      <if test="hGender != null">
+        h_gender,
+      </if>
+      <if test="hAsk != null">
+        h_ask,
+      </if>
+      <if test="hJudge != null">
+        h_judge,
+      </if>
+      <if test="hCreate != null">
+        h_create,
+      </if>
+      <if test="hModified != null">
+        h_modified,
+      </if>
+      <if test="hDep != null">
+        h_dep,
+      </if>
+      <if test="hDoctor != null">
+        h_doctor,
+      </if>
+      <if test="hDrug != null">
+        h_drug,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hId != null">
+        #{hId,jdbcType=VARCHAR},
+      </if>
+      <if test="hName != null">
+        #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hAge != null">
+        #{hAge,jdbcType=VARCHAR},
+      </if>
+      <if test="hBirth != null">
+        #{hBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="hGender != null">
+        #{hGender,jdbcType=VARCHAR},
+      </if>
+      <if test="hAsk != null">
+        #{hAsk,jdbcType=VARCHAR},
+      </if>
+      <if test="hJudge != null">
+        #{hJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="hCreate != null">
+        #{hCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hModified != null">
+        #{hModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hDep != null">
+        #{hDep,jdbcType=VARCHAR},
+      </if>
+      <if test="hDoctor != null">
+        #{hDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="hDrug != null">
+        #{hDrug,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.emr.pojo.HistorysheetExample" resultType="java.lang.Long">
+    select count(*) from historysheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update historysheet
+    <set>
+      <if test="record.hId != null">
+        h_id = #{record.hId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hName != null">
+        h_name = #{record.hName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hAge != null">
+        h_age = #{record.hAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hBirth != null">
+        h_birth = #{record.hBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hGender != null">
+        h_gender = #{record.hGender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hAsk != null">
+        h_ask = #{record.hAsk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hJudge != null">
+        h_judge = #{record.hJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hCreate != null">
+        h_create = #{record.hCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hModified != null">
+        h_modified = #{record.hModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hDep != null">
+        h_dep = #{record.hDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hDoctor != null">
+        h_doctor = #{record.hDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hDrug != null">
+        h_drug = #{record.hDrug,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update historysheet
+    set h_id = #{record.hId,jdbcType=VARCHAR},
+      h_name = #{record.hName,jdbcType=VARCHAR},
+      h_age = #{record.hAge,jdbcType=VARCHAR},
+      h_birth = #{record.hBirth,jdbcType=VARCHAR},
+      h_gender = #{record.hGender,jdbcType=VARCHAR},
+      h_ask = #{record.hAsk,jdbcType=VARCHAR},
+      h_judge = #{record.hJudge,jdbcType=VARCHAR},
+      h_create = #{record.hCreate,jdbcType=TIMESTAMP},
+      h_modified = #{record.hModified,jdbcType=TIMESTAMP},
+      h_dep = #{record.hDep,jdbcType=VARCHAR},
+      h_doctor = #{record.hDoctor,jdbcType=VARCHAR},
+      h_drug = #{record.hDrug,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
